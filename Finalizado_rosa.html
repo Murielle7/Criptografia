@@ -93,14 +93,12 @@
             <button onclick="showDecryption()">Descriptografia</button>
         </div>
         <div id="cryptography" class="hidden">
-            <h2>Criptografia</h2>
             <textarea id="text-to-encrypt" placeholder="Digite o texto para criptografar"></textarea>
             <input type="text" id="encryption-password" placeholder="Digite a senha">
             <button onclick="encryptText()">Criptografar</button>
             <button onclick="backToMain()">Voltar</button>
         </div>
         <div id="decryption" class="hidden">
-            <h2>Descriptografia</h2>
             <textarea id="text-to-decrypt" placeholder="Digite o texto criptografado"></textarea>
             <input type="text" id="decryption-password" placeholder="Digite a senha">
             <button onclick="decryptText()">Descriptografar</button>
@@ -121,19 +119,19 @@
             }
             return result;
         }
-
+    
         function encryptText() {
             const password = document.getElementById('encryption-password').value;
             const text = document.getElementById('text-to-encrypt').value;
-
+    
             if (!text || !password) {
                 alert("Por favor, preencha o texto e a senha.");
                 return;
             }
-
+    
             const encrypted = xorEncryptDecrypt(text, password);
             const blob = new Blob([encrypted], { type: 'text/plain' });
-
+    
             const url = URL.createObjectURL(blob);
             const link = document.getElementById('download-btn');
             link.href = url;
@@ -142,19 +140,19 @@
             link.innerText = 'Baixar Arquivo';
             document.getElementById('result').classList.remove('hidden');
         }
-
+    
         function decryptText() {
             const password = document.getElementById('decryption-password').value;
             const text = document.getElementById('text-to-decrypt').value;
-
+    
             if (!text || !password) {
                 alert("Por favor, preencha o texto criptografado e a senha.");
                 return;
             }
-
+    
             const decrypted = xorEncryptDecrypt(text, password);
             const blob = new Blob([decrypted], { type: 'text/plain' });
-
+    
             const url = URL.createObjectURL(blob);
             const link = document.getElementById('download-btn');
             link.href = url;
@@ -163,27 +161,32 @@
             link.innerText = 'Baixar Arquivo';
             document.getElementById('result').classList.remove('hidden');
         }
-
+    
         function showCryptography() {
             document.getElementById('main-content').classList.add('hidden');
             document.getElementById('cryptography').classList.remove('hidden');
             document.getElementById('decryption').classList.add('hidden');
             document.getElementById('result').classList.add('hidden');
         }
-
+    
         function showDecryption() {
             document.getElementById('main-content').classList.add('hidden');
             document.getElementById('cryptography').classList.add('hidden');
             document.getElementById('decryption').classList.remove('hidden');
             document.getElementById('result').classList.add('hidden');
         }
-
+    
         function backToMain() {
+            // Limpa os campos de texto ao voltar
+            document.getElementById('text-to-encrypt').value = '';
+            document.getElementById('encryption-password').value = '';
+            document.getElementById('text-to-decrypt').value = '';
+            document.getElementById('decryption-password').value = '';
+    
             document.getElementById('main-content').classList.remove('hidden');
             document.getElementById('cryptography').classList.add('hidden');
             document.getElementById('decryption').classList.add('hidden');
             document.getElementById('result').classList.add('hidden');
         }
     </script>
-</body>
-</html>
+    
